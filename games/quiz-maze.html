@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>متاهة الأسئلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/games.css">
+<style>
+.bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:10px}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent))}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <a href="./" class="brand" style="text-decoration:none;color:inherit;font-weight:800">الألعاب</a>
+    <nav class="nav">
+      <a href="../lessons/lesson1.html">الدرس الأول</a>
+      <button id="themeToggle" class="btn ghost">🌓</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>🌀 متاهة الأسئلة</h1>
+    <p class="lead">أجب بدقة لتتقدم من غرفة لأخرى. لكل إجابة صحيحة: <strong>+2</strong> نقطة.</p>
+    <div class="bar"><div id="fill"></div></div>
+  </section>
+
+  <section class="card" id="room">
+    <h2 id="title">الغرفة 1</h2>
+    <p id="q">أي فئة تناسب منصة «ووردبريس»؟</p>
+    <div id="answers" class="grid-2" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"></div>
+    <p class="lead" id="hint"></p>
+    <div style="text-align:end;margin-top:8px">
+      <button class="btn outline" id="retry" hidden>إعادة المحاولة</button>
+      <button class="btn primary" id="next" hidden>التالي →</button>
+    </div>
+  </section>
+
+  <section class="card" id="end" hidden>
+    <h2>🎉 مبروك! خرجت من المتاهة</h2>
+    <p>نتيجتك: <strong id="score"></strong> / <span id="total"></span></p>
+    <a class="btn primary" href="./index.html">رجوع إلى فهرس الألعاب</a>
+  </section>
+</main>
+
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/game-core.js"></script>
+<script>
+insertPointsBadge();
+
+const rooms = [
+  {title:"الغرفة 1", q:"أي فئة تناسب منصة «ووردبريس»؟", choices:["المدونات","الشبكات الاجتماعية","مشاركة الوسائط"], a:0, hint:"ووردبريس تُستخدم لنشر المقالات."},
+  {title:"الغرفة 2", q:"«تحرير تعاوني مع توثيق» يشير إلى:", choices:["ويكي","المدونات","الشبكات الاجتماعية"], a:0, hint:"مثل ويكيبيديا."},
+  {title:"الغرفة 3", q:"أفضل ممارسة للأمان:", choices:["مشاركة كلمة السر","تفعيل المصادقة الثنائية (2FA)","نشر الموقع لحظيًا دائمًا"], a:1, hint:"أضف طبقة تحقق لحسابك."},
+  {title:"الغرفة 4", q:"«البصمة الرقمية» تعني:", choices:["أثرك الدائم على الإنترنت","عدد المتابعين","سرعة الإنترنت"], a:0, hint:"تعليقاتك وصورك تبقى أثرًا."},
+  {title:"الغرفة 5", q:"يوتيوب يصنّف ضمن:", choices:["مشاركة الوسائط","المدونات","ويكي"], a:0, hint:"رفع فيديوهات وبث مباشر."}
+];
+
+let i=0, ok=0;
+const fill=document.getElementById("fill");
+const title=document.getElementById("title");
+const q=document.getElementById("q");
+const answers=document.getElementById("answers");
+const hint=document.getElementById("hint");
+const retry=document.getElementById("retry");
+const next=document.getElementById("next");
+const end=document.getElementById("end");
+const room=document.getElementById("room");
+
+function load(){
+  const r=rooms[i];
+  title.textContent=r.title; q.textContent=r.q; hint.textContent="";
+  answers.innerHTML="";
+  r.choices.forEach((c,idx)=>{
+    const b=document.createElement("button");
+    b.className="btn outline";
+    b.textContent=c;
+    b.onclick=()=> check(idx);
+    answers.appendChild(b);
+  });
+  retry.hidden=true; next.hidden=true;
+  fill.style.width = `${(i/rooms.length)*100}%`;
+}
+load();
+
+function check(idx){
+  const r=rooms[i];
+  const btns=[...answers.children];
+  btns.forEach(b=> b.disabled=true);
+  if(idx===r.a){
+    ok++; hint.textContent="صحيح ✅ +2 نقاط";
+    Points.add(2,false); SFX.ok(); next.hidden=false;
+  }else{
+    hint.textContent="إجابة غير دقيقة ❌ — تلميح: "+r.hint;
+    SFX.bad(); retry.hidden=false;
+  }
+}
+retry.onclick=()=> load();
+next.onclick=()=>{
+  i++;
+  if(i<rooms.length){ load(); }
+  else{
+    fill.style.width="100%";
+    room.hidden=true; end.hidden=false;
+    document.getElementById("score").textContent=ok;
+    document.getElementById("total").textContent=rooms.length;
+    Points.add(6); showToast("بونس إتمام المتاهة +6 🎉",2600);
+  }
+};
+</script>
+</body>
+</html>
