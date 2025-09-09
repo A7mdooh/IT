@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>اللعبة التعليمية: رحلة عبر شبكات التواصل</title>
+  <meta name="description" content="مغامرة تعليمية لاستكشاف المدونات والشبكات الاجتماعية والويكي ومشاركة الوسائط، مع مفاتيح الأمان.">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --radius:16px; --primary:#0ea5e9; --accent:#f59e0b; --ok:#16a34a; --warn:#eab308; --err:#ef4444;
+      --bg:#f8fafc; --panel:#ffffff; --text:#0f172a; --muted:#475569; --ring:rgba(14,165,233,.45);
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:clamp(16px,1.1vw+12px,19px)}
+    a{color:inherit}
+    .container{width:min(1100px,92%);margin:auto;padding:24px}
+    .topbar{position:sticky;top:0;background:linear-gradient(90deg,rgba(14,165,233,.12),rgba(245,158,11,.12));backdrop-filter:blur(6px);border-bottom:1px solid rgba(2,8,23,.08);z-index:40}
+    .nav a,.nav button{margin-inline:.35rem;text-decoration:none;color:var(--text)}
+    .btn{border:0;border-radius:999px;padding:10px 16px;cursor:pointer;font-weight:800}
+    .btn.primary{background:var(--primary);color:#fff}
+    .btn.outline{background:transparent;border:1px solid var(--primary);color:var(--primary)}
+    .btn.ghost{background:transparent;border:1px solid rgba(2,8,23,.12);color:var(--text)}
+    .card{background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:16px}
+    .hero{border-radius:var(--radius);padding:28px;background:
+      radial-gradient(1100px 380px at 100% -20%, rgba(14,165,233,.20), transparent 60%),
+      radial-gradient(1000px 300px at -10% -30%, rgba(245,158,11,.20), transparent 60%),
+      var(--panel); box-shadow:var(--shadow); border:1px solid rgba(2,8,23,.06)}
+    .hero h1{margin:0 0 6px;font-size:clamp(28px,2.3vw+18px,44px);
+      background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted)}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(2,8,23,.06)}
+    .grid{display:grid;gap:16px}
+    @media(min-width:880px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}.grid.four{grid-template-columns:repeat(4,1fr)}}
+    /* شريط مراحل + مفاتيح */
+    .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+    .stage{display:flex;align-items:center;gap:8px;padding:10px;border-radius:12px;border:1px dashed rgba(2,8,23,.18);background:#f1f5f9}
+    .stage.done{border-style:solid;border-color:var(--primary);background:#e0f2fe}
+    .key{font-size:1.1rem}
+    .toast{position:fixed;inset-inline:16px;bottom:16px;background:#fff;color:var(--text);
+      border-inline-start:6px solid var(--primary);padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:60}
+    .toast.show{opacity:1;transform:none}
+    /* DnD عام */
+    .tokens{display:flex;flex-wrap:wrap;gap:8px}
+    .token{display:inline-flex;align-items:center;gap:8px;margin:6px;padding:10px 14px;border-radius:999px;background:#fff;border:1px solid rgba(2,8,23,.14);cursor:grab;user-select:none}
+    .token small{opacity:.7}
+    .buckets{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .bucket{min-height:130px;padding:10px;border-radius:12px;border:2px dashed rgba(2,8,23,.18);background:#f8fafc}
+    .bucket h4{margin:0 0 6px}
+    .result{margin-top:8px;font-weight:800}
+    .shake{animation:shake .3s linear} @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+    /* شريط الوقت النهائي */
+    .bar{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+    .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent))}
+    /* لوحة المشاريع */
+    .board{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.85em;background:rgba(2,8,23,.06)}
+  </style>
+</head>
+<body>
+  <!-- شريط علوي -->
+  <header class="topbar">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+      <a class="brand" href="../" style="font-weight:800;text-decoration:none;color:var(--text)">منصتي</a>
+      <nav class="nav">
+        <a href="../lessons/lesson1.html">الدرس الأول</a>
+        <a href="../lessons/lesson1-plan.html">تحضير الدرس</a>
+        <a href="./">الألعاب</a>
+        <button id="themeToggle" class="btn ghost">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- بطل -->
+    <section class="hero">
+      <h1>اللعبة التعليمية: رحلة عبر شبكات التواصل</h1>
+      <p class="lead">اجمع <strong>مفاتيح الأمان</strong> باجتياز العوالم الأربعة: التعارف، الاستكشاف، المخاطر والأمان، المشروع الختامي.</p>
+      <div class="chips">
+        <span class="chip">المدونات</span>
+        <span class="chip">الشبكات الاجتماعية</span>
+        <span class="chip">مشاركة الوسائط</span>
+        <span class="chip">ويكي/محررات الويب</span>
+      </div>
+      <div class="progress" aria-label="تقدم المراحل">
+        <div class="stage" id="s1"><span class="key">🔒</span> التعارف</div>
+        <div class="stage" id="s2"><span class="key">🔒</span> الاستكشاف</div>
+        <div class="stage" id="s3"><span class="key">🔒</span> المخاطر والأمان</div>
+        <div class="stage" id="s4"><span class="key">🔒</span> المشروع</div>
+      </div>
+      <button class="btn primary" id="start">ابدأ المغامرة</button>
+    </section>
+
+    <!-- المرحلة 1: التعارف (Intro Quiz) -->
+    <section class="card" id="intro" hidden>
+      <h2>المرحلة 1: التعارف — طابق الشعار مع الفئة</h2>
+      <p class="lead">اسحب البطاقة إلى الفئة الصحيحة: (مدونات / شبكات اجتماعية / ويكي/محررات الويب / مشاركة وسائط)</p>
+      <div class="tokens" id="introTokens" aria-label="بطاقات الشعارات">
+        <!-- استخدمنا بطاقات نصية لتعمل دون صور — يمكنك لاحقًا استبدال النص بصور شعارات -->
+        <div class="token" draggable="true" data-type="شبكات اجتماعية">Facebook <small>(شبكات)</small></div>
+        <div class="token" draggable="true" data-type="شبكات اجتماعية">Twitter <small>(شبكات)</small></div>
+        <div class="token" draggable="true" data-type="مدونات">Blogger <small>(مدونات)</small></div>
+        <div class="token" draggable="true" data-type="ويكي">Wikipedia <small>(ويكي)</small></div>
+        <div class="token" draggable="true" data-type="مشاركة وسائط">YouTube <small>(وسائط)</small></div>
+      </div>
+      <div class="buckets">
+        <div class="bucket" data-accept="مدونات"><h4>مدونات</h4></div>
+        <div class="bucket" data-accept="شبكات اجتماعية"><h4>شبكات اجتماعية</h4></div>
+        <div class="bucket" data-accept="ويكي"><h4>ويكي/محررات الويب</h4></div>
+        <div class="bucket" data-accept="مشاركة وسائط"><h4>مشاركة وسائط</h4></div>
+      </div>
+      <div class="result" id="introOut"></div>
+      <div style="text-align:end;margin-top:8px">
+        <button class="btn ghost" id="resetIntro">إعادة</button>
+        <button class="btn primary" id="next1" disabled>التالي ←</button>
+      </div>
+    </section>
+
+    <!-- المرحلة 2: الاستكشاف (Drag & Drop Challenge) -->
+    <section class="card" id="explore" hidden>
+      <h2>المرحلة 2: الاستكشاف — نشاط ↔ وسيلة</h2>
+      <p class="lead">اسحب النشاط إلى الوسيلة الأنسب: (YouTube / Blogger / Wikipedia)</p>
+      <div class="tokens" id="expTokens">
+        <div class="token" draggable="true" data-target="YouTube">مشاركة مقطع فيديو</div>
+        <div class="token" draggable="true" data-target="Blogger">كتابة يوميات شخصية</div>
+        <div class="token" draggable="true" data-target="Wikipedia">التعاون في كتابة مقال</div>
+      </div>
+      <div class="buckets">
+        <div class="bucket" data-name="YouTube"><h4>YouTube</h4></div>
+        <div class="bucket" data-name="Blogger"><h4>Blogger</h4></div>
+        <div class="bucket" data-name="Wikipedia"><h4>Wikipedia</h4></div>
+      </div>
+      <div class="result" id="expOut"></div>
+      <div style="text-align:end;margin-top:8px">
+        <button class="btn ghost" id="resetExp">إعادة</button>
+        <button class="btn primary" id="next2" disabled>التالي ←</button>
+      </div>
+    </section>
+
+    <!-- المرحلة 3: المخاطر والأمان (Decision Game) -->
+    <section class="card" id="safety" hidden>
+      <h2>المرحلة 3: المخاطر والأمان — قرار سريع</h2>
+      <p class="lead">اختر التصرف الصحيح/الخاطئ لكل موقف. تحتاج 3/4 نقاط للفوز بالمفتاح.</p>
+      <div class="grid two" id="safetyList">
+        <div class="card" style="border-style:dashed">
+          <p>وصلتك رسالة تطلب مشاركة بياناتك الشخصية.</p>
+          <button class="btn outline" data-ok="false">أشارك البيانات</button>
+          <button class="btn outline" data-ok="true">أرفض وأبلّغ</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>تلقيت صورة مسيئة عبر تطبيق.</p>
+          <button class="btn outline" data-ok="true">أبلّغ وأحفظ الدليل</button>
+          <button class="btn outline" data-ok="false">أعيد نشرها</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>صديقك طلب كلمة مرورك للدخول إلى حسابك.</p>
+          <button class="btn outline" data-ok="false">أعطيه كلمة المرور</button>
+          <button class="btn outline" data-ok="true">أرفض وأشرح المخاطر</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>طلب صداقة من شخص مجهول دون معلومات واضحة.</p>
+          <button class="btn outline" data-ok="false">أقبل فورًا</button>
+          <button class="btn outline" data-ok="true">أرفض/أتأكد أولًا</button>
+        </div>
+      </div>
+      <div class="result" id="safeOut"></div>
+      <div style="text-align:end;margin-top:8px">
+        <button class="btn ghost" id="resetSafe">إعادة</button>
+        <button class="btn primary" id="next3" disabled>التالي ←</button>
+      </div>
+    </section>
+
+    <!-- المرحلة 4: المشروع الختامي (Mini-Project Game) -->
+    <section class="card" id="project" hidden>
+      <h2>المرحلة 4: المشروع — مخطط استخدام جماعي</h2>
+      <p class="lead">اعملوا في مجموعات صغيرة لتصميم مخطط استخدام وسيلة تواصل: اسم الوسيلة – الهدف – ممارسات إيجابية – ممارسات يجب تجنبها.</p>
+      <div class="grid two">
+        <div>
+          <label>اسم المجموعة</label>
+          <input class="token" id="gName" placeholder="مجموعة 1" style="width:100%">
+          <label>الوسيلة</label>
+          <input class="token" id="gPlatform" placeholder="مثال: YouTube" style="width:100%">
+          <label>الهدف من الاستخدام</label>
+          <input class="token" id="gGoal" placeholder="مثال: تعلم البرمجة" style="width:100%">
+        </div>
+        <div>
+          <label>ممارسات إيجابية</label>
+          <textarea class="token" id="gDo" rows="4" placeholder="تحقق من المصادر، ضبط الوقت..." style="width:100%"></textarea>
+          <label>ممارسات يجب تجنبها</label>
+          <textarea class="token" id="gDont" rows="4" placeholder="مشاركة بيانات حساسة، التنمر..." style="width:100%"></textarea>
+          <div style="text-align:end;margin-top:8px">
+            <button class="btn primary" id="addCard">نشر في الصف الافتراضي</button>
+          </div>
+        </div>
+      </div>
+      <div class="result" id="projOut"></div>
+      <h3 style="margin-top:12px">الصف الافتراضي (Gamified Presentation)</h3>
+      <div class="board" id="board"></div>
+      <div style="text-align:end;margin-top:8px">
+        <button class="btn outline" id="printBoard">طباعة اللوحة</button>
+        <button class="btn primary" id="finish" disabled>إنهاء الرحلة 🎉</button>
+      </div>
+    </section>
+
+    <!-- تهنئة -->
+    <section class="card" id="congrats" hidden>
+      <h2>مبروك! جمعت كل مفاتيح الأمان 🔑🔑🔑🔑</h2>
+      <p class="lead">المخرجات التعليمية التي حققتها:</p>
+      <ul>
+        <li>تمييز أنواع وسائل التواصل الاجتماعي.</li>
+        <li>فهم استخداماتها المختلفة.</li>
+        <li>إدراك المخاطر وأهمية الاستخدام الآمن.</li>
+        <li>تعزيز التفكير الناقد والعمل الجماعي.</li>
+      </ul>
+      <a class="btn primary" href="../lessons/lesson1.html">العودة للدرس</a>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ========= مؤثرات وإعداد عام ========= */
+    const $ = (s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
+    const toast = $("#toast");
+    function showToast(msg, ms=2000){ toast.innerHTML=msg; toast.classList.add("show"); clearTimeout(window.__t); window.__t=setTimeout(()=>toast.classList.remove("show"), ms); }
+    // أصوات نجاح/خطأ عبر WebAudio (بدون ملفات)
+    let audioCtx=null; function initAudio(){ if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); }
+    function beep(freq=880, dur=0.12, type="sine", gain=0.04){
+      if(!audioCtx) return;
+      const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+      o.type=type; o.frequency.value=freq; g.gain.value=gain;
+      o.connect(g).connect(audioCtx.destination);
+      o.start(); o.stop(audioCtx.currentTime+dur);
+    }
+    function sfx(type){
+      initAudio();
+      if(type==="ok"){ [0,0.12,0.24].forEach((t,i)=>setTimeout(()=>beep(660+220*i,0.09,"sine",0.06), t*1000)); }
+      if(type==="bad"){ [0,0.09].forEach((t,i)=>setTimeout(()=>beep(220-40*i,0.12,"square",0.06), t*1000)); }
+    }
+
+    // تبديل الثيم
+    $("#themeToggle")?.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark");
+      showToast(document.body.classList.contains("dark")?"تم تفعيل الوضع الليلي 🌙":"تم التحويل للوضع الفاتح ☀️");
+    });
+
+    // شريط المراحل
+    const stages = [$("#s1"), $("#s2"), $("#s3"), $("#s4")];
+    function unlock(i){ stages[i].classList.add("done"); stages[i].querySelector(".key").textContent="🔑"; }
+
+    // بدء
+    $("#start").addEventListener("click", ()=>{
+      $("#intro").hidden=false; window.scrollTo({top: $("#intro").offsetTop-10, behavior:"smooth"});
+      showToast("هيا نبدأ مرحلة التعارف!");
+    });
+
+    /* ========= المرحلة 1: التعارف ========= */
+    (function(){
+      const tokens = $$("#introTokens .token");
+      const buckets = $$(".bucket", $("#intro"));
+      let placed=0, total=tokens.length;
+      tokens.forEach(t=>{
+        t.addEventListener("dragstart", e=>{
+          initAudio();
+          e.dataTransfer.setData("t", t.dataset.type+"|"+t.textContent);
+        });
+      });
+      buckets.forEach(b=>{
+        b.addEventListener("dragover", e=> e.preventDefault());
+        b.addEventListener("drop", e=>{
+          const data = e.dataTransfer.getData("t"); if(!data) return;
+          const [type,label]=data.split("|");
+          if(b.dataset.accept===type){
+            const el = tokens.find(x=>x.textContent===label && x.draggable);
+            if(!el) return;
+            el.draggable=false; el.style.cursor="default"; el.style.opacity=.85;
+            b.appendChild(el);
+            placed++; sfx("ok"); showToast(`أحسنت! ${label} = ${type}`);
+            if(placed===total){
+              $("#introOut").textContent="ممتاز! حصلت على مفتاح الأمان الأول.";
+              $("#next1").disabled=false; unlock(0);
+            }
+          }else{
+            b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"), 300);
+            sfx("bad"); showToast("ليست الفئة الصحيحة ❌");
+          }
+        });
+      });
+      $("#resetIntro").addEventListener("click", ()=> location.reload());
+      $("#next1").addEventListener("click", ()=>{
+        $("#explore").hidden=false; window.scrollTo({top: $("#explore").offsetTop-10, behavior:"smooth"});
+      });
+    })();
+
+    /* ========= المرحلة 2: الاستكشاف ========= */
+    (function(){
+      const tokens = $$("#expTokens .token");
+      const buckets = $$(".bucket", $("#explore"));
+      let placed=0, total=tokens.length;
+      tokens.forEach(t=> t.addEventListener("dragstart", e=> e.dataTransfer.setData("t", t.dataset.target+"|"+t.textContent)));
+      buckets.forEach(b=>{
+        b.addEventListener("dragover", e=> e.preventDefault());
+        b.addEventListener("drop", e=>{
+          const data=e.dataTransfer.getData("t"); if(!data) return;
+          const [target,label]=data.split("|");
+          if(b.dataset.name===target){
+            const el = tokens.find(x=>x.textContent===label && x.draggable);
+            if(!el) return;
+            el.draggable=false; el.style.cursor="default"; el.style.opacity=.85;
+            b.appendChild(el); placed++; sfx("ok"); showToast("صحيح ✅");
+            if(placed===total){ $("#expOut").textContent="رائع! مفتاح الأمان الثاني أصبح لك."; $("#next2").disabled=false; unlock(1); }
+          }else{
+            b.classList.add("shake"); setTimeout(()=>b.classList.remove("shake"), 300);
+            sfx("bad"); showToast("اختيار غير دقيق ❌");
+          }
+        });
+      });
+      $("#resetExp").addEventListener("click", ()=> location.reload());
+      $("#next2").addEventListener("click", ()=>{
+        $("#safety").hidden=false; window.scrollTo({top: $("#safety").offsetTop-10, behavior:"smooth"});
+      });
+    })();
+
+    /* ========= المرحلة 3: المخاطر والأمان ========= */
+    (function(){
+      let score=0, answered=0;
+      $("#safetyList").addEventListener("click", e=>{
+        const btn = e.target.closest("button[data-ok]"); if(!btn) return;
+        if(btn.disabled) return;
+        answered++;
+        const ok = btn.getAttribute("data-ok")==="true";
+        if(ok){ score++; sfx("ok"); showToast("تصرف صحيح ✅"); btn.classList.add("primary"); }
+        else { sfx("bad"); showToast("هذا تصرف خاطئ ❌"); btn.classList.add("shake"); }
+        // تعطيل زري البطاقة
+        btn.parentElement.querySelectorAll("button").forEach(b=> b.disabled=true);
+        $("#safeOut").textContent = `نتيجتك: ${score}/${answered}`;
+        if(answered>=4){
+          if(score>=3){ $("#safeOut").textContent += " — أحسنت! حصلت على مفتاح الأمان الثالث."; $("#next3").disabled=false; unlock(2); }
+          else { $("#safeOut").textContent += " — أعد المحاولة لتحصل على المفتاح."; }
+        }
+      });
+      $("#resetSafe").addEventListener("click", ()=> location.reload());
+      $("#next3").addEventListener("click", ()=>{
+        $("#project").hidden=false; window.scrollTo({top: $("#project").offsetTop-10, behavior:"smooth"});
+      });
+    })();
+
+    /* ========= المرحلة 4: المشروع ========= */
+    (function(){
+      const board = $("#board");
+      const hasCards = ()=> board.children.length>0;
+      $("#addCard").addEventListener("click", ()=>{
+        const name=$("#gName").value.trim(), plat=$("#gPlatform").value.trim(), goal=$("#gGoal").value.trim(), dox=$("#gDo").value.trim(), dont=$("#gDont").value.trim();
+        if(!name||!plat||!goal||!dox||!dont){ showToast("أكمل جميع الحقول أولًا"); sfx("bad"); return; }
+        const card=document.createElement("div");
+        card.className="card";
+        card.innerHTML=`
+          <div class="badge">👥 ${name}</div>
+          <h3 style="margin:.4rem 0">الوسيلة: ${plat}</h3>
+          <p><strong>الهدف:</strong> ${goal}</p>
+          <p><strong>ممارسات إيجابية:</strong><br>${dox.replace(/\n/g,"<br>")}</p>
+          <p><strong>ممارسات يجب تجنبها:</strong><br>${dont.replace(/\n/g,"<br>")}</p>`;
+        board.prepend(card);
+        $("#projOut").textContent="تم النشر في الصف الافتراضي — ممتاز! حصلت على مفتاح الأمان الرابع.";
+        $("#finish").disabled=false; sfx("ok"); unlock(3); showToast("مفتاح الأمان الرابع 🔑");
+        // حفظ محلي بسيط
+        const saved = JSON.parse(localStorage.getItem("journey_board")||"[]");
+        saved.unshift({name,plat,goal,dox,dont});
+        localStorage.setItem("journey_board", JSON.stringify(saved));
+      });
+
+      // تحميل اللوحة من التخزين المحلي
+      (function loadBoard(){
+        const saved = JSON.parse(localStorage.getItem("journey_board")||"[]");
+        saved.forEach(({name,plat,goal,dox,dont})=>{
+          const card=document.createElement("div");
+          card.className="card";
+          card.innerHTML=`
+            <div class="badge">👥 ${name}</div>
+            <h3 style="margin:.4rem 0">الوسيلة: ${plat}</h3>
+            <p><strong>الهدف:</strong> ${goal}</p>
+            <p><strong>ممارسات إيجابية:</strong><br>${dox.replace(/\n/g,"<br>")}</p>
+            <p><strong>ممارسات يجب تجنبها:</strong><br>${dont.replace(/\n/g,"<br>")}</p>`;
+          board.appendChild(card);
+        });
+        if(saved.length){ $("#finish").disabled=false; }
+      })();
+
+      $("#printBoard").addEventListener("click", ()=> window.print());
+      $("#finish").addEventListener("click", ()=>{
+        $("#congrats").hidden=false; window.scrollTo({top: $("#congrats").offsetTop-10, behavior:"smooth"});
+        showToast("انتهت الرحلة — أحسنتم جميعًا! 🎉");
+      });
+    })();
+  </script>
+</body>
+</html>
