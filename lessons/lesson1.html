@@ -3,16 +3,51 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الدرس الأول | مقدمة في وسائل التواصل الاجتماعي (نسخة مُثرية)</title>
-  <meta name="description" content="درس مُعزَّز بمعلومات وروابط حية وأنشطة تفاعلية: تصنيف الفئات، الأثر، الأمان الرقمي، وخطة استخدام شخصية.">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <title>الدرس الأول | مقدمة في وسائل التواصل الاجتماعي</title>
+  <meta name="description" content="تصنيف فئات وسائل التواصل، أثرها، وخطة استخدام مسؤولة مع أنشطة قصيرة وتغذية راجعة فورية.">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --radius:16px; --primary:#0ea5e9; --accent:#f59e0b; --ok:#16a34a; --err:#ef4444;
+      --bg:#f8fafc; --panel:#fff; --text:#0f172a; --muted:#475569; --ring:rgba(14,165,233,.45);
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:clamp(16px,1.1vw+12px,19px)}
+    .container{width:min(1100px,92%);margin:auto;padding:24px}
+    .topbar{position:sticky;top:0;background:linear-gradient(90deg,rgba(14,165,233,.12),rgba(245,158,11,.12));backdrop-filter:blur(6px);border-bottom:1px solid rgba(2,8,23,.08);z-index:20}
+    .nav a,.nav button{margin-inline:.35rem;text-decoration:none;color:var(--text)}
+    .btn{border:0;border-radius:999px;padding:10px 16px;cursor:pointer;font-weight:800}
+    .btn.primary{background:var(--primary);color:#fff}.btn.outline{background:transparent;border:1px solid var(--primary);color:var(--primary)}
+    .btn.ghost{background:transparent;border:1px solid rgba(2,8,23,.12);color:var(--text)} .btn.link{background:transparent;border:0;color:var(--primary);padding:0}
+    .hero{border-radius:var(--radius);padding:28px;background:
+      radial-gradient(1100px 380px at 100% -20%, rgba(14,165,233,.20), transparent 60%),
+      radial-gradient(1000px 300px at -10% -30%, rgba(245,158,11,.20), transparent 60%),
+      var(--panel); box-shadow:var(--shadow); border:1px solid rgba(2,8,23,.06)}
+    .hero h1{margin:0 0 6px;font-size:clamp(28px,2.3vw+18px,44px);
+      background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted)}
+    .grid{display:grid;gap:16px} @media(min-width:860px){.grid.two{grid-template-columns:repeat(2,1fr)}.grid.four{grid-template-columns:repeat(4,1fr)}}
+    .card{background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{padding:8px 12px;border-radius:999px;background:rgba(2,8,23,.06)}
+    table.vocab{width:100%;border-collapse:collapse} .vocab th,.vocab td{border:1px solid rgba(2,8,23,.12);padding:.5rem;text-align:center}
+    .input{width:100%;border-radius:12px;border:1px solid rgba(2,8,23,.16);padding:.6rem .8rem;background:#fff}
+    .result{margin-top:8px;font-weight:800}
+    .toast{position:fixed;inset-inline:16px;bottom:16px;background:#fff;color:var(--text);
+      border-inline-start:6px solid var(--primary);padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:50}
+    .toast.show{opacity:1;transform:none}
+    /* سحب وإفلات */
+    .dnd{display:grid;gap:12px} .buckets{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .bucket{min-height:130px;padding:10px;border-radius:12px;border:2px dashed rgba(2,8,23,.18);background:#f1f5f9}
+    .token{display:inline-block;margin:6px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid rgba(2,8,23,.14);cursor:grab}
+    /* شريط التحدي النهائي */
+    .bar{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+    .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent))}
+  </style>
 </head>
 <body>
-  <!-- شريط علوي -->
   <header class="topbar">
-    <div class="container">
-      <a class="brand" href="../">منصتي</a>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+      <a class="brand" href="../" style="font-weight:800;text-decoration:none;color:var(--text)">منصتي</a>
       <nav class="nav">
         <a href="../lessons/lesson1-plan.html">تحضير الدرس</a>
         <a href="../lessons/">الدروس</a>
@@ -23,123 +58,69 @@
     </div>
   </header>
 
-  <main class="container lesson-wrap">
-    <!-- بطل -->
+  <main class="container">
+    <!-- تمهيد/نشاط قبلي -->
     <section class="hero">
-      <h1>وسائل التواصل الاجتماعي — فهمٌ عميق واستخدامٌ مسؤول</h1>
-      <p class="lead">ستتعلّم الفئات الرئيسة، الأثر في حياتنا، أفضل ممارسات الأمان، وتبني خطة استخدام شخصية.</p>
-      <div class="chips">
-        <span class="chip">تصنيف الفئات</span>
-        <span class="chip">أثر اجتماعي/تعليمي</span>
-        <span class="chip">أمان وخصوصية</span>
-        <span class="chip">خطة شخصية</span>
+      <h1>الدرس الأول: مقدمة في وسائل التواصل الاجتماعي</h1>
+      <p class="lead">سنصنّف الفئات الرئيسية، ونحلّل أثرها، ثم نبني خطة استخدام مسؤولة متوافقة مع قيمنا.</p>
+      <div class="chips" id="warmup">
+        <span>اختر منصتك المفضلة:</span>
+        <button class="chip">إنستجرام</button>
+        <button class="chip">يوتيوب</button>
+        <button class="chip">تيك توك</button>
+        <button class="chip">لينكدإن</button>
+        <button class="chip">ووردبريس</button>
       </div>
     </section>
 
-    <!-- أهداف من الدليل -->
-    <section class="card hover-rise" id="objectives">
-      <h2>الأهداف التعليمية</h2>
+    <!-- المصطلحات -->
+    <section class="card">
+      <h2>المصطلحات (عربي / English)</h2>
+      <table class="vocab">
+        <thead><tr><th>المصطلح العربي</th><th>English</th><th>لماذا يهم؟</th></tr></thead>
+        <tbody>
+          <tr><td>وسائل التواصل الاجتماعي</td><td>Social Media</td><td>مظلة عامة للفئات والمنصات.</td></tr>
+          <tr><td>الشبكات الاجتماعية</td><td>Social Networks</td><td>ملفات شخصية وتفاعلات/متابعة.</td></tr>
+          <tr><td>المدونات</td><td>Blogs</td><td>محتوى أطول وآراء/مقالات.</td></tr>
+          <tr><td>الويكي</td><td>Wikis</td><td>تحرير تعاوني وتوثيق.</td></tr>
+          <tr><td>مشاركة الوسائط</td><td>Media Sharing</td><td>استضافة صور/فيديو وبث.</td></tr>
+          <tr><td>البصمة الرقمية</td><td>Digital Footprint</td><td>أثرك الدائم على الشبكة.</td></tr>
+          <tr><td>المصادقة الثنائية</td><td>Two-Factor Authentication</td><td>طبقة أمان إضافية لحساباتك.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- الأهداف -->
+    <section class="card">
+      <h2>أهداف الدرس</h2>
       <ul>
-        <li>يصنّف وسائل التواصل (شبكات اجتماعية/مدونات/ويكي/مشاركة وسائط).</li>
-        <li>يحلّل أثرها في التعلم والحياة اليومية بأمثلة حيّة.</li>
-        <li>يطبّق ممارسات أمان وخصوصية ويضع خطة استخدام مسؤولة.</li>
+        <li>يصنّف وسائل التواصل حسب فئاتها.</li>
+        <li>يدرك أهميتها وأثرها في حياته والعالم من حوله.</li>
+        <li>يلتزم بالقيم ويضع خطة استخدام منظّمة.</li>
       </ul>
-      <p class="lead" style="margin-top:6px">الأهداف مستندة إلى بطاقة الدرس ومخرجات الوحدة في الدليل والكتاب.</p>
+      <p class="lead" style="margin:6px 0 0">(مطابقة لدليل المعلم والكتاب)</p>
     </section>
 
-    <!-- مفاهيم مُثرية + روابط حيّة -->
-    <section class="card hover-rise" id="concepts">
-      <h2>الفئات الرئيسة + مصادر للتوسّع</h2>
-      <div class="grid-4">
-        <article class="mini-card">
-          <h3>الشبكات الاجتماعية</h3>
-          <p>ملفات شخصية، متابعة/أصدقاء، منشورات وتفاعلات.</p>
-          <a class="btn link" target="_blank" rel="noopener" href="https://ar.wikipedia.org/wiki/%D8%AE%D8%AF%D9%85%D8%A9_%D8%B4%D8%A8%D9%83%D8%A9_%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A%D8%A9">اقرأ: ما هي الشبكات الاجتماعية؟ ↗</a>
-        </article>
-        <article class="mini-card">
-          <h3>المدونات</h3>
-          <p>مقالات وآراء مرتّبة زمنيًا، محتوى طويل نسبيًا.</p>
-          <a class="btn link" target="_blank" rel="noopener" href="https://wordpress.com/">جرّب منصة تدوين (WordPress) ↗</a>
-        </article>
-        <article class="mini-card">
-          <h3>ويكي</h3>
-          <p>تحرير تعاوني للمعرفة وتوثيق للمصادر.</p>
-          <a class="btn link" target="_blank" rel="noopener" href="https://ar.wikipedia.org/wiki/%D9%88%D9%8A%D9%83%D9%8A%D8%A8%D9%8A%D8%AF%D9%8A%D8%A7">مثال: ويكيبيديا العربية ↗</a>
-        </article>
-        <article class="mini-card">
-          <h3>مشاركة الوسائط</h3>
-          <p>استضافة الصور/الفيديو والبث مباشرة.</p>
-          <a class="btn link" target="_blank" rel="noopener" href="https://www.youtube.com/creators/safety/">مركز سلامة منشئي يوتيوب ↗</a>
-        </article>
+    <!-- هدف 1: التصنيف + نشاط سريع -->
+    <section class="card">
+      <h2>هدف 1: تصنيف الفئات</h2>
+      <div class="grid four">
+        <div class="chip">الشبكات الاجتماعية</div>
+        <div class="chip">المدونات</div>
+        <div class="chip">ويكي</div>
+        <div class="chip">مشاركة الوسائط</div>
       </div>
-      <p class="muted">مصادر عامة للتعريف: ويكيبيديا — وسائل التواصل/الويب 2.0.</p>
-      <div class="right">
-        <a class="btn outline" target="_blank" rel="noopener" href="https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D8%A7%D8%A6%D9%84_%D8%AA%D9%88%D8%A7%D8%B5%D9%84_%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A">مقال تعريفي شامل ↗</a>
-      </div>
-    </section>
+      <p class="lead">الفكرة: كل فئة لها خصائص محددة وأمثلة معروفة.</p>
 
-    <!-- مختبر الأمان: خطوات عملية بروابط رسمية -->
-    <section class="card hover-rise" id="safetyLab">
-      <h2>🛡️ مختبر الأمان والخصوصية (تطبيق فوري)</h2>
-      <div class="grid-2">
-        <div>
-          <h3>1) إنستجرام — إعدادات الخصوصية</h3>
-          <p>افتح مركز المساعدة وتعرّف كيف تدير خصوصيتك (حساب خاص، التحكم في التعليقات، الرسائل…).</p>
-          <div class="chips">
-            <a class="chip" target="_blank" rel="noopener" href="https://help.instagram.com/285881641526716">دليل إدارة الخصوصية ↗</a>
-          </div>
-          <button class="btn primary" onclick="award('instagram')">أنهيتُ الاطلاع ✅</button>
-        </div>
-        <div>
-          <h3>2) تيك توك — ربط عائلي Family Pairing</h3>
-          <p>ميزة تسمح بإشراف وليّ الأمر على وقت الشاشة والرسائل والفلاتر.</p>
-          <div class="chips">
-            <a class="chip" target="_blank" rel="noopener" href="https://support.tiktok.com/en/safety-hc/account-and-user-safety/family-pairing">شرح Family Pairing ↗</a>
-          </div>
-          <button class="btn primary" onclick="award('tiktok')">اطّلعت ✅</button>
-        </div>
-        <div>
-          <h3>3) Google — مركز الأمان</h3>
-          <p>أدوات للتحقق من الأمان وضبط الخصوصية لحسابك وخدماتك.</p>
-          <div class="chips">
-            <a class="chip" target="_blank" rel="noopener" href="https://safety.google/intl/ar/">مركز أمان Google ↗</a>
-          </div>
-          <button class="btn primary" onclick="award('google')">أتممت ✅</button>
-        </div>
-        <div>
-          <h3>4) يونيسف — سلامة الأطفال على الإنترنت</h3>
-          <p>نصائح عملية للأسرة ومخاطر شائعة وكيفية التعامل معها.</p>
-          <div class="chips">
-            <a class="chip" target="_blank" rel="noopener" href="https://www.unicef.org/mena/ar/%D9%83%D9%8A%D9%81-%D8%AA%D8%AD%D8%A7%D9%81%D8%B8%D9%88%D9%86-%D8%B9%D9%84%D9%89-%D8%B3%D9%84%D8%A7%D9%85%D8%A9-%D8%A3%D8%B7%D9%81%D8%A7%D9%84%D9%83%D9%85-%D8%B9%D9%84%D9%89-%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B1%D9%86%D8%AA">يونيسف (منطقة الشرق الأوسط) ↗</a>
-          </div>
-          <button class="btn primary" onclick="award('unicef')">أطلعت ✅</button>
-        </div>
-      </div>
-      <p class="result" id="labResult"></p>
-      <small class="muted">* روابط رسمية لتعلّم عملي وتبنّي عادات آمنة.</small>
-    </section>
-
-    <!-- ربط محلي: الإبلاغ في عُمان -->
-    <section class="card hover-rise" id="omanCERT">
-      <h2>📢 في عُمان: إلى من أبلّغ عند الاشتباه؟</h2>
-      <p>المركز الوطني للسلامة المعلوماتية (Oman CERT) — مبادرات وخدمات وتوعية.</p>
-      <a class="btn outline" target="_blank" rel="noopener" href="https://www.cert.gov.om/">المركز الوطني للسلامة المعلوماتية ↗</a>
-    </section>
-
-    <!-- لعبة تصنيف موسّعة -->
-    <section class="card hover-rise" id="classify">
-      <h2>🎯 لعبة: صنّف المنصات إلى فئاتها</h2>
-      <p class="muted">اسحب المنصات إلى الدلو الصحيح. تحصل على نقاط عند الإجابة الصحيحة.</p>
+      <h3 style="margin-top:10px">نشاط سريع: اسحب المنصة إلى الفئة الصحيحة</h3>
       <div class="dnd">
         <div id="tokens">
           <span class="token" draggable="true" data-type="شبكات">إنستجرام</span>
+          <span class="token" draggable="true" data-type="وسائط">يوتيوب</span>
           <span class="token" draggable="true" data-type="مدونات">ووردبريس</span>
           <span class="token" draggable="true" data-type="ويكي">ويكيبيديا</span>
-          <span class="token" draggable="true" data-type="وسائط">يوتيوب</span>
-          <span class="token" draggable="true" data-type="مدونات">بلوجر</span>
           <span class="token" draggable="true" data-type="شبكات">لينكدإن</span>
-          <span class="token" draggable="true" data-type="وسائط">تيك توك</span>
-          <span class="token" draggable="true" data-type="شبكات">فيسبوك</span>
+          <span class="token" draggable="true" data-type="مدونات">بلوجر</span>
         </div>
         <div class="buckets">
           <div class="bucket" data-accept="شبكات"><strong>الشبكات الاجتماعية</strong></div>
@@ -147,166 +128,123 @@
           <div class="bucket" data-accept="ويكي"><strong>ويكي</strong></div>
           <div class="bucket" data-accept="وسائط"><strong>مشاركة الوسائط</strong></div>
         </div>
-        <div class="result" id="classifyResult"></div>
+        <div class="result" id="classifyOut"></div>
       </div>
     </section>
 
-    <!-- مهمة ميدانية: قراءة موجّهة -->
-    <section class="card hover-rise" id="guidedRead">
-      <h2>🔎 مهمة ميدانية: ابحث عن المصطلح في مقال موثوق</h2>
-      <p>اقرأ فقرة من هذا المقال ثم اكتب المصطلح المطلوب:</p>
-      <ol>
-        <li>افتح مقال <em>وسائل التواصل الاجتماعي</em> على ويكيبيديا (العربية).</li>
-        <li>ابحث عن المصطلح المرتبط بالتطور التقني الذي مكّن المشاركة والتفاعل (تلميح: يبدأ بـ «ويب…»).</li>
-      </ol>
-      <div class="chips">
-        <a class="chip" target="_blank" rel="noopener" href="https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D8%A7%D8%A6%D9%84_%D8%AA%D9%88%D8%A7%D8%B5%D9%84_%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A">افتح المقال ↗</a>
+    <!-- هدف 2: الأثر + نشاط سريع -->
+    <section class="card">
+      <h2>هدف 2: أثر الاستخدام في التعلم والحياة</h2>
+      <p>أمثلة: التعلم المصغّر، التواصل مع الخبراء، بناء ملف رقمي، العمل التعاوني.</p>
+      <h3>نشاط سريع: مربعات القرار</h3>
+      <div class="grid two" id="impact">
+        <div class="card" style="border-style:dashed">
+          <p>متابعة قناة دروس برمجة أسبوعيًا</p>
+          <button class="btn outline" data-good>فائدة</button>
+          <button class="btn outline" data-bad>مخاطرة</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>نشر الموقع الفعلي للمدرسة أثناء الفعاليات</p>
+          <button class="btn outline" data-good>فائدة</button>
+          <button class="btn outline" data-bad>مخاطرة</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>التحقق من صحة الخبر قبل إعادة نشره</p>
+          <button class="btn outline" data-good>فائدة</button>
+          <button class="btn outline" data-bad>مخاطرة</button>
+        </div>
+        <div class="card" style="border-style:dashed">
+          <p>مشاركة كلمة المرور مع صديق مقرّب</p>
+          <button class="btn outline" data-good>فائدة</button>
+          <button class="btn outline" data-bad>مخاطرة</button>
+        </div>
       </div>
-      <div class="grid-2" style="margin-top:10px">
-        <input class="input" id="term" placeholder="اكتب المصطلح هنا (مثال: ويب 2.0)">
-        <button class="btn primary" id="checkTerm">تحقق</button>
-      </div>
-      <div class="result" id="termResult"></div>
+      <div class="result" id="impactOut"></div>
     </section>
 
-    <!-- دراسة حالة -->
-    <section class="card hover-rise" id="case">
-      <h2>🧭 دراسة حالة: التأثير المجتمعي لوسائل التواصل</h2>
-      <p>اقرأ باختصار دور المنصات في حدث تاريخي حديث، ثم أجب صحيح/خطأ.</p>
-      <a class="btn outline" target="_blank" rel="noopener" href="https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D8%A7%D8%A6%D9%84_%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84_%D8%A7%D9%84%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A_%D8%AE%D9%84%D8%A7%D9%84_%D8%A7%D9%84%D8%B1%D8%A8%D9%8A%D8%B9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A">اقرأ: دورها في الربيع العربي ↗</a>
-      <div class="chips" style="margin-top:10px">
-        <button class="chip" data-tf="true">سهّلت التواصل بين المشاركين — صحيح؟</button>
-        <button class="chip" data-tf="false">لا علاقة لها بالتواصل — صحيح؟</button>
-      </div>
-      <div class="result" id="caseResult"></div>
-    </section>
-
-    <!-- خطة استخدام شخصية -->
-    <section class="card hover-rise" id="planner">
-      <h2>🗺️ خطتي الشخصية لاستخدام وسائل التواصل</h2>
-      <p class="muted">حدّد هدفًا واضحًا ومنصة مناسبة ووقتًا أسبوعيًا وإجراءات أمان.</p>
-      <div class="grid-2">
+    <!-- هدف 3: التخطيط والاستخدام المسؤول + نشاط سريع -->
+    <section class="card">
+      <h2>هدف 3: خطّة استخدام مسؤولة</h2>
+      <p class="lead">بنموذج مختصر: هدف → منصة → وقت أسبوعي → إجراءات أمان (2FA/الخصوصية/البصمة الرقمية).</p>
+      <div class="grid two">
         <div>
           <label>الهدف:</label>
-          <input class="input" id="goal" placeholder="مثال: متابعة قناة تعليمية في البرمجة">
+          <input class="input" id="goal" placeholder="مثال: تعلم ألغاز البرمجة">
           <label>المنصة:</label>
           <input class="input" id="platform" placeholder="يوتيوب / إنستجرام / ووردبريس …">
           <label>الوقت الأسبوعي:</label>
-          <input class="input" id="time" placeholder="مثال: 3 ساعات">
+          <input class="input" id="time" placeholder="3 ساعات">
         </div>
         <div>
           <label>إجراءات الأمان:</label>
           <textarea class="input" id="safety" rows="5" placeholder="تفعيل 2FA، ضبط الخصوصية، عدم مشاركة الموقع الفوري…"></textarea>
-          <div class="right" style="margin-top:10px">
+          <div style="margin-top:10px;text-align:end">
             <button class="btn primary" id="buildPlan">إنشاء الخطة</button>
           </div>
         </div>
       </div>
       <div class="result" id="planOut"></div>
+      <p class="lead">* الدليل يشير إلى إعداد «مخطط استخدام وسائل التواصل» ضمن نشاطات الدرس. </p>
     </section>
 
-    <!-- تقويم ختامي موسّع -->
-    <section class="card hover-rise" id="quiz">
-      <h2>📝 تقويم ختامي (6 أسئلة)</h2>
-      <ol>
-        <li>المدونات أمثلة مثل: <button class="btn outline" data-q="1" data-a>ووردبريس</button> <button class="btn outline" data-q="1">إنستجرام</button></li>
-        <li>الويكي تُحرَّر تعاونيًا: <button class="btn outline" data-q="2" data-a>صحيح</button> <button class="btn outline" data-q="2">خطأ</button></li>
-        <li>منصة مشاركة وسائط: <button class="btn outline" data-q="3" data-a>يوتيوب</button> <button class="btn outline" data-q="3">لينكدإن</button></li>
-        <li>أفضل ممارسة للأمان: <button class="btn outline" data-q="4" data-a>تفعيل 2FA</button> <button class="btn outline" data-q="4">نشر الموقع دائمًا</button></li>
-        <li>للتوسع في الأمان: <button class="btn outline" data-q="5" data-a>مركز أمان Google</button> <button class="btn outline" data-q="5">لوحات ترند</button></li>
-        <li>مصدر أممي لنصائح الأسرة: <button class="btn outline" data-q="6" data-a>يونيسف</button> <button class="btn outline" data-q="6">مجهول</button></li>
+    <!-- نشاط ختامي: تحدي 60 ثانية -->
+    <section class="card">
+      <h2>نشاط ختامي: تحدي 60 ثانية</h2>
+      <div class="bar"><div id="barFill"></div></div>
+      <ol id="finalQuiz" style="margin-top:10px">
+        <li>الويكي تعتمد على <button class="btn outline" data-q="1" data-a>تحرير تعاوني</button> <button class="btn outline" data-q="1">رسائل خاصة</button></li>
+        <li>منصة تدوين: <button class="btn outline" data-q="2" data-a>ووردبريس</button> <button class="btn outline" data-q="2">إنستجرام</button></li>
+        <li>أفضل ممارسة للأمان: <button class="btn outline" data-q="3" data-a>تفعيل 2FA</button> <button class="btn outline" data-q="3">مشاركة كلمة السر</button></li>
+        <li>مشاركة الموقع لحظيًا دائمًا هي: <button class="btn outline" data-q="4">فائدة</button> <button class="btn outline" data-q="4" data-a>مخاطرة</button></li>
+        <li>مشاركة فيديو تعليمي والالتزام بالوقت المحدد: <button class="btn outline" data-q="5" data-a>فائدة</button> <button class="btn outline" data-q="5">مخاطرة</button></li>
       </ol>
-      <div class="result" id="score"></div>
-    </section>
-
-    <!-- لوحة إنجاز -->
-    <section class="card hover-rise" id="badges">
-      <h2>🏅 شارات الإنجاز</h2>
-      <p class="muted">تحصل على الشارات تلقائيًا حسب تفاعلك:</p>
-      <ul>
-        <li>💠 <strong>مستكشف آمن:</strong> اكمل «مختبر الأمان» (زرار الاطلاع).</li>
-        <li>💠 <strong>مصنّف محترف:</strong> صنّف كل العناصر بشكل صحيح.</li>
-        <li>💠 <strong>قارئ ناقد:</strong> أنجز «المهمة الميدانية» بنجاح.</li>
-      </ul>
-      <div id="badgeBox" class="chips"></div>
+      <div class="result" id="finalOut"></div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container"><small>© <span id="year"></span> منصتي التعليمية</small></div>
-  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="../assets/js/ui.js"></script>
   <script>
-    // سنة
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // ===== إشعار بسيط =====
+    const toast = document.getElementById("toast");
+    function showToast(msg, ms=2200){ toast.innerHTML = msg; toast.classList.add("show"); clearTimeout(window.__t); window.__t=setTimeout(()=>toast.classList.remove("show"), ms); }
 
-    // نقاط/شارات
-    let points = Number(localStorage.getItem("points_v2")||0);
-    const setPoints = v => { points = Math.max(0, v); localStorage.setItem("points_v2", points); };
-    const addPoints = v => { setPoints(points + v); showToast("+"+v+" نقطة 🎉"); refreshBadges(); };
-
-    // مختبر الأمان (أزرار إتمام)
-    const labProgress = {instagram:false,tiktok:false,google:false,unicef:false};
-    function award(key){
-      labProgress[key] = true;
-      const done = Object.values(labProgress).every(Boolean);
-      document.getElementById("labResult").textContent = done ? "أحسنت! أكملت المختبر. +20 نقطة" : "تابع الاطلاع على بقية الموارد…";
-      if(done) addPoints(20);
-    }
-
-    // لعبة السحب والإفلات
-    const tokens = document.querySelectorAll(".token");
-    const buckets = document.querySelectorAll(".bucket");
-    let correct = 0, total = tokens.length;
-    tokens.forEach(t=>{
-      t.addEventListener("dragstart", e=> e.dataTransfer.setData("t", t.dataset.type+"|"+t.textContent));
-    });
-    buckets.forEach(b=>{
-      b.addEventListener("dragover", e=> e.preventDefault());
-      b.addEventListener("drop", e=>{
-        const data = e.dataTransfer.getData("t");
-        if(!data) return;
-        const [type,label] = data.split("|");
-        if(b.dataset.accept===type){
-          const chip = document.createElement("span");
-          chip.className = "chip"; chip.textContent = label;
-          b.appendChild(chip);
-          correct++;
-          showToast("صحيح!"); 
-          if(correct===total){
-            document.getElementById("classifyResult").textContent = "ممتاز! صنّفت كل العناصر. +20 نقطة";
-            addPoints(20);
-          }
-        }else{
-          showToast("ليست الفئة الصحيحة، جرّب ثانية 🙏", 2200);
-        }
-      });
-    });
-
-    // مهمة ميدانية: تحقق من المصطلح (ويب 2.0)
-    document.getElementById("checkTerm").addEventListener("click", ()=>{
-      const v = (document.getElementById("term").value||"").trim();
-      if(!v){ showToast("اكتب المصطلح أولًا"); return; }
-      if(v.includes("ويب 2.0") || v.includes("Web 2.0")){
-        document.getElementById("termResult").textContent = "صحيح! المصطلح هو «ويب 2.0». +10 نقاط";
-        addPoints(10);
-      }else{
-        document.getElementById("termResult").textContent = "اقتربت! ابحث مرة أخرى في المقال.";
+    // تمهيد: اختيار منصة
+    document.getElementById("warmup").addEventListener("click", e=>{
+      if(e.target.classList.contains("chip")){
+        e.target.classList.toggle("on");
+        showToast("جميل! لنكتشف كيف نستفيد منها بذكاء ✨");
       }
     });
 
-    // دراسة حالة: صحيح/خطأ
-    const caseBtns = document.querySelectorAll("#case [data-tf]");
-    caseBtns.forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const val = btn.getAttribute("data-tf")==="true";
-        document.getElementById("caseResult").textContent = val ? "صحيح! +10 نقاط" : "الإجابة الأدق: «سهّلت التواصل».";
-        if(val) addPoints(10);
+    // سحب وإفلات
+    const tokens = document.querySelectorAll(".token");
+    const buckets = document.querySelectorAll(".bucket");
+    let good=0, total=tokens.length;
+    tokens.forEach(t=> t.addEventListener("dragstart", e=> e.dataTransfer.setData("t", t.dataset.type+"|"+t.textContent)));
+    buckets.forEach(b=>{
+      b.addEventListener("dragover", e=> e.preventDefault());
+      b.addEventListener("drop", e=>{
+        const data = e.dataTransfer.getData("t"); if(!data) return;
+        const [type,label] = data.split("|");
+        if(b.dataset.accept===type){
+          const chip = document.createElement("span"); chip.className="chip"; chip.textContent=label; b.appendChild(chip);
+          showToast("صحيح! ✅"); good++; if(good===total){ document.getElementById("classifyOut").textContent="ممتاز! أتقنت التصنيف."; }
+        }else{ showToast("جرّب فئة أخرى ❌"); }
       });
     });
 
-    // إنشاء خطة شخصية
+    // هدف 2: مربعات القرار
+    document.getElementById("impact").addEventListener("click", e=>{
+      const btn = e.target.closest("button"); if(!btn) return;
+      const isGood = btn.hasAttribute("data-good");
+      const isBad  = btn.hasAttribute("data-bad");
+      if(isGood){ showToast("اختيار موفق 👍") }
+      if(isBad){ showToast("انتبــه: هذه ممارسة غير آمنة ⚠️") }
+      document.getElementById("impactOut").textContent = "استنتاج: نلتزم بالفوائد ونتجنب الممارسات غير الآمنة.";
+    });
+
+    // هدف 3: إنشاء الخطة
     document.getElementById("buildPlan").addEventListener("click", ()=>{
       const g = document.getElementById("goal").value.trim();
       const p = document.getElementById("platform").value.trim();
@@ -314,43 +252,47 @@
       const s = document.getElementById("safety").value.trim();
       if(!g||!p||!t||!s){ showToast("أكمل الحقول أولًا"); return; }
       document.getElementById("planOut").innerHTML = `
-        <div class="card" style="margin-top:12px">
-          <h3>خطتي لهذا الشهر</h3>
+        <div class="card" style="margin-top:10px">
+          <h3>خطة استخدامي</h3>
           <ul>
             <li><strong>الهدف:</strong> ${g}</li>
             <li><strong>المنصة:</strong> ${p}</li>
-            <li><strong>الوقت:</strong> ${t}</li>
-            <li><strong>الأمان:</strong> ${s}</li>
+            <li><strong>الوقت الأسبوعي:</strong> ${t}</li>
+            <li><strong>إجراءات الأمان:</strong> ${s}</li>
           </ul>
         </div>`;
-      addPoints(10);
+      showToast("رائع! خُطتك جاهزة ✅");
     });
 
-    // تقويم ختامي
-    let score=0, answered=new Set();
-    document.querySelectorAll("#quiz [data-q]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const q = btn.getAttribute("data-q");
-        if(answered.has(q)) return;
-        answered.add(q);
-        if(btn.hasAttribute("data-a")){score++; btn.classList.add("primary"); showToast("صحيح ✅",1500);}
-        else {btn.style.opacity=.6; showToast("غير دقيق ❌",1500);}
-        if(answered.size===6){
-          document.getElementById("score").textContent = `نتيجتك: ${score}/6`;
-          if(score>=5){ addPoints(10); }
-        }
-      })
-    });
-
-    // شارات
-    function refreshBadges(){
-      const box = document.getElementById("badgeBox");
-      box.innerHTML = "";
-      if(Object.values(labProgress).every(Boolean)) box.insertAdjacentHTML("beforeend","<span class='chip'>🏅 مستكشف آمن</span>");
-      if(correct===total) box.insertAdjacentHTML("beforeend","<span class='chip'>🏅 مصنّف محترف</span>");
-      const termOK = (document.getElementById("termResult").textContent||'').includes("صحيح");
-      if(termOK) box.insertAdjacentHTML("beforeend","<span class='chip'>🏅 قارئ ناقد</span>");
+    // تحدي 60 ثانية
+    const bar = document.getElementById("barFill"); let answered=new Set(), score=0, secs=60;
+    function tick(){ secs--; bar.style.width = (100*(1 - secs/60))+"%"; if(secs<=0){ finish(); } }
+    let timer = setInterval(tick, 1000);
+    function finish(){
+      clearInterval(timer);
+      document.querySelectorAll("#finalQuiz [data-q]").forEach(b=> b.disabled=true);
+      document.getElementById("finalOut").textContent = `نتيجتك: ${score}/5`;
+      showToast(score>=4 ? "ممتاز! إتقان رائع 🎉" : "عمل جيد! راجع ما أخطأت فيه ثم أعد المحاولة 🙌", 2600);
     }
+    document.getElementById("finalQuiz").addEventListener("click", e=>{
+      const btn = e.target.closest("button[data-q]"); if(!btn) return;
+      const q = btn.getAttribute("data-q"); if(answered.has(q)) return;
+      answered.add(q);
+      if(btn.hasAttribute("data-a")){ score++; btn.classList.add("primary"); showToast("صحيح ✅",1500); }
+      else { btn.style.opacity=.6; showToast("إجابة غير دقيقة ❌",1500); }
+      if(answered.size===5) finish();
+    });
+
+    // تبديل الثيم (اختياري)
+    document.getElementById("themeToggle")?.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark");
+      const dark = document.body.classList.contains("dark");
+      document.documentElement.style.setProperty("--bg", dark?"#0b1220":"#f8fafc");
+      document.documentElement.style.setProperty("--panel", dark?"#0f172a":"#fff");
+      document.documentElement.style.setProperty("--text", dark?"#e5e7eb":"#0f172a");
+      document.documentElement.style.setProperty("--muted", dark?"#9ca3af":"#475569");
+      showToast(dark?"تم تفعيل الوضع الليلي 🌙":"تم التحويل للوضع الفاتح ☀️");
+    });
   </script>
 </body>
 </html>
