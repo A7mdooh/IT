@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>بطاقات فلاش</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/games.css">
+<style>
+.card3d{margin:18px 0;background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:20px;box-shadow:var(--shadow);height:240px;perspective:1000px}
+.inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;border-radius:20px;cursor:pointer}
+.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;display:grid;place-items:center;padding:16px;border-radius:20px;backface-visibility:hidden}
+.front{background:#ecfeff}
+.back{background:#fff7ed;transform:rotateY(180deg)}
+.row{display:flex;gap:8px;justify-content:center;margin-top:10px}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <a href="./" class="brand" style="text-decoration:none;color:inherit;font-weight:800">الألعاب</a>
+    <nav class="nav">
+      <a href="../lessons/lesson1.html">الدرس الأول</a>
+      <button id="themeToggle" class="btn ghost">🌓</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>🧠 بطاقات فلاش</h1>
+    <p class="lead">اقلب البطاقة ثم اختر: <strong>أعرفها</strong> (تحصل على +1) أو <strong>لا أعرفها</strong>.</p>
+    <div class="chips"><span class="chip">التقدّم: <span id="idx">1</span>/<span id="total">6</span></span><span class="chip">الصحيح: <strong id="ok">0</strong></span></div>
+  </section>
+
+  <section class="card3d" id="card">
+    <div class="inner" id="inner">
+      <div class="face front" id="front"></div>
+      <div class="face back" id="back"></div>
+    </div>
+  </section>
+
+  <div class="row">
+    <button class="btn ghost" id="flip">اقلب البطاقة</button>
+    <button class="btn primary" id="know">أعرفها</button>
+    <button class="btn" id="dont">لا أعرفها</button>
+  </div>
+
+  <p class="lead" id="out"></p>
+</main>
+
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/game-core.js"></script>
+<script>
+insertPointsBadge();
+
+const deck = [
+  {term:"الشبكات الاجتماعية (Social Networks)", def:"ملف شخصي + علاقات/متابعة + موجز تفاعلات."},
+  {term:"المدونات (Blogs)", def:"مقالات/آراء مرتبة زمنيًا مع تعليقات."},
+  {term:"الويكي (Wikis)", def:"تحرير تعاوني للمحتوى مع توثيق."},
+  {term:"مشاركة الوسائط (Media Sharing)", def:"رفع صور/فيديو وبث وتعليقات."},
+  {term:"البصمة الرقمية (Digital Footprint)", def:"الأثر الدائم لأنشطتك على الإنترنت."},
+  {term:"المصادقة الثنائية (2FA)", def:"طبقة تحقق إضافية لحماية الحساب."}
+];
+let i=0, ok=0, flipped=false; const total=deck.length;
+const idxEl=document.getElementById("idx"), totalEl=document.getElementById("total");
+const okEl=document.getElementById("ok"), out=document.getElementById("out");
+totalEl.textContent=total;
+
+const front=document.getElementById("front"), back=document.getElementById("back"), inner=document.getElementById("inner");
+function load(){
+  idxEl.textContent=i+1; okEl.textContent=ok; out.textContent="";
+  inner.parentElement.classList.remove("flip"); flipped=false;
+  front.innerHTML = `<h2>${deck[i].term}</h2><p class="lead">(اضغط اقلب البطاقة لعرض التعريف)</p>`;
+  back.innerHTML  = `<h2>${deck[i].def}</h2>`;
+}
+load();
+
+document.getElementById("flip").onclick=()=>{ inner.parentElement.classList.toggle("flip"); flipped=!flipped; };
+document.getElementById("know").onclick=()=>{ ok++; okEl.textContent=ok; Points.add(1,false); SFX.ok(); next(); };
+document.getElementById("dont").onclick=()=>{ SFX.bad(); next(); };
+
+function next(){
+  if(i<total-1){ i++; load(); }
+  else{
+    const bonus = ok>=4 ? 5 : 2; Points.add(bonus); showToast(`انتهيت! نتيجتك: ${ok}/${total} — بونس +${bonus}`,2600);
+    document.getElementById("know").disabled=true; document.getElementById("dont").disabled=true; document.getElementById("flip").disabled=true;
+    out.textContent = `انتهيت!`;
+  }
+}
+</script>
+</body>
+</html>
