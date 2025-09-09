@@ -4,21 +4,28 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>الدرس الأول | مقدمة في وسائل التواصل الاجتماعي</title>
-  <meta name="description" content="تصنيف فئات وسائل التواصل، أثرها، وخطة استخدام مسؤولة مع أنشطة قصيرة وتغذية راجعة فورية.">
+  <meta name="description" content="تعريفات دقيقة، شرح مفصل للأهداف، أنشطة قصيرة بعد كل هدف، ونشاط ختامي تفاعلي.">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --radius:16px; --primary:#0ea5e9; --accent:#f59e0b; --ok:#16a34a; --err:#ef4444;
-      --bg:#f8fafc; --panel:#fff; --text:#0f172a; --muted:#475569; --ring:rgba(14,165,233,.45);
+      --radius:16px; --primary:#0ea5e9; --accent:#f59e0b; --ok:#16a34a; --warn:#eab308; --err:#ef4444;
+      --bg:#f8fafc; --panel:#ffffff; --text:#0f172a; --muted:#475569; --ring:rgba(14,165,233,.45);
       --shadow:0 12px 30px rgba(0,0,0,.08);
     }
-    *{box-sizing:border-box} body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:clamp(16px,1.1vw+12px,19px)}
+    body.dark{
+      --bg:#0b1220; --panel:#0f172a; --text:#e5e7eb; --muted:#9ca3af; --shadow:0 10px 30px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Cairo",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:clamp(16px,1.1vw+12px,19px)}
+    a{color:inherit}
     .container{width:min(1100px,92%);margin:auto;padding:24px}
-    .topbar{position:sticky;top:0;background:linear-gradient(90deg,rgba(14,165,233,.12),rgba(245,158,11,.12));backdrop-filter:blur(6px);border-bottom:1px solid rgba(2,8,23,.08);z-index:20}
+    .topbar{position:sticky;top:0;background:linear-gradient(90deg,rgba(14,165,233,.12),rgba(245,158,11,.12));backdrop-filter:blur(6px);border-bottom:1px solid rgba(2,8,23,.08);z-index:40}
     .nav a,.nav button{margin-inline:.35rem;text-decoration:none;color:var(--text)}
     .btn{border:0;border-radius:999px;padding:10px 16px;cursor:pointer;font-weight:800}
-    .btn.primary{background:var(--primary);color:#fff}.btn.outline{background:transparent;border:1px solid var(--primary);color:var(--primary)}
-    .btn.ghost{background:transparent;border:1px solid rgba(2,8,23,.12);color:var(--text)} .btn.link{background:transparent;border:0;color:var(--primary);padding:0}
+    .btn.primary{background:var(--primary);color:#fff}
+    .btn.outline{background:transparent;border:1px solid var(--primary);color:var(--primary)}
+    .btn.ghost{background:transparent;border:1px solid rgba(2,8,23,.12);color:var(--text)}
+    .btn.link{background:transparent;border:0;color:var(--primary);padding:0}
     .hero{border-radius:var(--radius);padding:28px;background:
       radial-gradient(1100px 380px at 100% -20%, rgba(14,165,233,.20), transparent 60%),
       radial-gradient(1000px 300px at -10% -30%, rgba(245,158,11,.20), transparent 60%),
@@ -26,17 +33,21 @@
     .hero h1{margin:0 0 6px;font-size:clamp(28px,2.3vw+18px,44px);
       background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:var(--muted)}
-    .grid{display:grid;gap:16px} @media(min-width:860px){.grid.two{grid-template-columns:repeat(2,1fr)}.grid.four{grid-template-columns:repeat(4,1fr)}}
-    .card{background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{padding:8px 12px;border-radius:999px;background:rgba(2,8,23,.06)}
-    table.vocab{width:100%;border-collapse:collapse} .vocab th,.vocab td{border:1px solid rgba(2,8,23,.12);padding:.5rem;text-align:center}
+    .card{background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:16px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(2,8,23,.06)}
+    .grid{display:grid;gap:16px}
+    @media(min-width:880px){.grid.two{grid-template-columns:1fr 1fr}.grid.four{grid-template-columns:repeat(4,1fr)}}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid rgba(2,8,23,.12);padding:.6rem;text-align:center}
     .input{width:100%;border-radius:12px;border:1px solid rgba(2,8,23,.16);padding:.6rem .8rem;background:#fff}
     .result{margin-top:8px;font-weight:800}
     .toast{position:fixed;inset-inline:16px;bottom:16px;background:#fff;color:var(--text);
-      border-inline-start:6px solid var(--primary);padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:50}
+      border-inline-start:6px solid var(--primary);padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.25s;z-index:60}
     .toast.show{opacity:1;transform:none}
     /* سحب وإفلات */
-    .dnd{display:grid;gap:12px} .buckets{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .dnd{display:grid;gap:12px}
+    .buckets{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
     .bucket{min-height:130px;padding:10px;border-radius:12px;border:2px dashed rgba(2,8,23,.18);background:#f1f5f9}
     .token{display:inline-block;margin:6px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid rgba(2,8,23,.14);cursor:grab}
     /* شريط التحدي النهائي */
@@ -45,9 +56,10 @@
   </style>
 </head>
 <body>
+  <!-- شريط علوي -->
   <header class="topbar">
     <div class="container" style="display:flex;justify-content:space-between;align-items:center">
-      <a class="brand" href="../" style="font-weight:800;text-decoration:none;color:var(--text)">منصتي</a>
+      <a class="brand" href="../" style="font-weight:800;text-decoration:none">منصتي</a>
       <nav class="nav">
         <a href="../lessons/lesson1-plan.html">تحضير الدرس</a>
         <a href="../lessons/">الدروس</a>
@@ -59,11 +71,11 @@
   </header>
 
   <main class="container">
-    <!-- تمهيد/نشاط قبلي -->
-    <section class="hero">
+    <!-- تمهيد/نشاط قبلي لإثارة الدافعية -->
+    <section class="hero" id="warmup">
       <h1>الدرس الأول: مقدمة في وسائل التواصل الاجتماعي</h1>
-      <p class="lead">سنصنّف الفئات الرئيسية، ونحلّل أثرها، ثم نبني خطة استخدام مسؤولة متوافقة مع قيمنا.</p>
-      <div class="chips" id="warmup">
+      <p class="lead">سنُصنّف الفئات الرئيسية، نفهم أثرها، ثم نضع خطة استخدام مسؤولة موافقة للقيم.</p>
+      <div class="chips">
         <span>اختر منصتك المفضلة:</span>
         <button class="chip">إنستجرام</button>
         <button class="chip">يوتيوب</button>
@@ -73,19 +85,19 @@
       </div>
     </section>
 
-    <!-- المصطلحات -->
+    <!-- المصطلحات (عربي/English) + تعريفات مختصرة -->
     <section class="card">
-      <h2>المصطلحات (عربي / English)</h2>
-      <table class="vocab">
-        <thead><tr><th>المصطلح العربي</th><th>English</th><th>لماذا يهم؟</th></tr></thead>
+      <h2>المصطلحات الأساسية (عربي / English)</h2>
+      <table>
+        <thead><tr><th>المصطلح العربي</th><th>English</th><th>تعريف مختصر</th></tr></thead>
         <tbody>
-          <tr><td>وسائل التواصل الاجتماعي</td><td>Social Media</td><td>مظلة عامة للفئات والمنصات.</td></tr>
-          <tr><td>الشبكات الاجتماعية</td><td>Social Networks</td><td>ملفات شخصية وتفاعلات/متابعة.</td></tr>
-          <tr><td>المدونات</td><td>Blogs</td><td>محتوى أطول وآراء/مقالات.</td></tr>
-          <tr><td>الويكي</td><td>Wikis</td><td>تحرير تعاوني وتوثيق.</td></tr>
-          <tr><td>مشاركة الوسائط</td><td>Media Sharing</td><td>استضافة صور/فيديو وبث.</td></tr>
-          <tr><td>البصمة الرقمية</td><td>Digital Footprint</td><td>أثرك الدائم على الشبكة.</td></tr>
-          <tr><td>المصادقة الثنائية</td><td>Two-Factor Authentication</td><td>طبقة أمان إضافية لحساباتك.</td></tr>
+          <tr><td>وسائل التواصل الاجتماعي</td><td>Social Media</td><td>منصات لإنشاء المحتوى ومشاركته والتفاعل.</td></tr>
+          <tr><td>الشبكات الاجتماعية</td><td>Social Networks</td><td>ملف شخصي + علاقات/متابعة + موجز تفاعلات.</td></tr>
+          <tr><td>المدونات</td><td>Blogs</td><td>مقالات/آراء مرتبة زمنيًا مع تعليقات.</td></tr>
+          <tr><td>الويكي</td><td>Wikis</td><td>تحرير تعاوني للمحتوى مع توثيق.</td></tr>
+          <tr><td>مشاركة الوسائط</td><td>Media Sharing</td><td>رفع صور/فيديو وبث وتفاعل.</td></tr>
+          <tr><td>البصمة الرقمية</td><td>Digital Footprint</td><td>أثرك الدائم على الإنترنت.</td></tr>
+          <tr><td>المصادقة الثنائية</td><td>Two-Factor Authentication</td><td>طبقة تحقق إضافية لحماية الحساب.</td></tr>
         </tbody>
       </table>
     </section>
@@ -95,23 +107,22 @@
       <h2>أهداف الدرس</h2>
       <ul>
         <li>يصنّف وسائل التواصل حسب فئاتها.</li>
-        <li>يدرك أهميتها وأثرها في حياته والعالم من حوله.</li>
-        <li>يلتزم بالقيم ويضع خطة استخدام منظّمة.</li>
+        <li>يدرك أهميتها وأثرها في حياته ومجتمعه.</li>
+        <li>يلتزم بالقيم ويضع خطة استخدام منظّمة وآمنة.</li>
       </ul>
-      <p class="lead" style="margin:6px 0 0">(مطابقة لدليل المعلم والكتاب)</p>
+      <p class="lead" style="margin-top:6px">الأهداف مستندة إلى الكتاب ودليل المعلّم (مخرجات الوحدة والدرس).</p>
     </section>
 
-    <!-- هدف 1: التصنيف + نشاط سريع -->
-    <section class="card">
+    <!-- الهدف 1: التصنيف + نشاط سريع -->
+    <section class="card" id="goal1">
       <h2>هدف 1: تصنيف الفئات</h2>
-      <div class="grid four">
+      <p><strong>الشرح المختصر:</strong> نستخدم أربع فئات كبرى: الشبكات الاجتماعية، المدونات، الويكي، مشاركة الوسائط. قد تمتلك منصة خصائص متعددة، لكن نصنّفها بما يغلب على وظيفتها.</p>
+      <div class="grid four" style="margin:8px 0">
         <div class="chip">الشبكات الاجتماعية</div>
         <div class="chip">المدونات</div>
         <div class="chip">ويكي</div>
         <div class="chip">مشاركة الوسائط</div>
       </div>
-      <p class="lead">الفكرة: كل فئة لها خصائص محددة وأمثلة معروفة.</p>
-
       <h3 style="margin-top:10px">نشاط سريع: اسحب المنصة إلى الفئة الصحيحة</h3>
       <div class="dnd">
         <div id="tokens">
@@ -132,29 +143,29 @@
       </div>
     </section>
 
-    <!-- هدف 2: الأثر + نشاط سريع -->
-    <section class="card">
+    <!-- الهدف 2: الأثر + نشاط سريع -->
+    <section class="card" id="goal2">
       <h2>هدف 2: أثر الاستخدام في التعلم والحياة</h2>
-      <p>أمثلة: التعلم المصغّر، التواصل مع الخبراء، بناء ملف رقمي، العمل التعاوني.</p>
+      <p><strong>الشرح المختصر:</strong> الأثر الإيجابي يظهر عندما يحقّق استخدامنا هدفًا واضحًا (تعلم، تواصل نافع، مواطنة رقمية)، والأثر السلبي يظهر عند هدر الوقت أو الإضرار بالخصوصية أو نشر الشائعات.</p>
       <h3>نشاط سريع: مربعات القرار</h3>
       <div class="grid two" id="impact">
         <div class="card" style="border-style:dashed">
-          <p>متابعة قناة دروس برمجة أسبوعيًا</p>
+          <p>متابعة قناة تعليمية أسبوعيًا</p>
           <button class="btn outline" data-good>فائدة</button>
           <button class="btn outline" data-bad>مخاطرة</button>
         </div>
         <div class="card" style="border-style:dashed">
-          <p>نشر الموقع الفعلي للمدرسة أثناء الفعاليات</p>
+          <p>مشاركة موقع المدرسة لحظيًا أثناء فعالية</p>
           <button class="btn outline" data-good>فائدة</button>
           <button class="btn outline" data-bad>مخاطرة</button>
         </div>
         <div class="card" style="border-style:dashed">
-          <p>التحقق من صحة الخبر قبل إعادة نشره</p>
+          <p>التحقق من الخبر قبل إعادة نشره</p>
           <button class="btn outline" data-good>فائدة</button>
           <button class="btn outline" data-bad>مخاطرة</button>
         </div>
         <div class="card" style="border-style:dashed">
-          <p>مشاركة كلمة المرور مع صديق مقرّب</p>
+          <p>مشاركة كلمة المرور مع صديق</p>
           <button class="btn outline" data-good>فائدة</button>
           <button class="btn outline" data-bad>مخاطرة</button>
         </div>
@@ -162,10 +173,10 @@
       <div class="result" id="impactOut"></div>
     </section>
 
-    <!-- هدف 3: التخطيط والاستخدام المسؤول + نشاط سريع -->
-    <section class="card">
-      <h2>هدف 3: خطّة استخدام مسؤولة</h2>
-      <p class="lead">بنموذج مختصر: هدف → منصة → وقت أسبوعي → إجراءات أمان (2FA/الخصوصية/البصمة الرقمية).</p>
+    <!-- الهدف 3: التخطيط والاستخدام المسؤول + نشاط سريع -->
+    <section class="card" id="goal3">
+      <h2>هدف 3: خطة استخدام مسؤولة</h2>
+      <p class="lead">خطوات الخطة: تحديد الهدف ← اختيار المنصة الأنسب ← وقت أسبوعي منضبط ← إجراءات أمان (2FA/الخصوصية/البصمة الرقمية) ← التزام بالقيم والسلوك الحسن.</p>
       <div class="grid two">
         <div>
           <label>الهدف:</label>
@@ -184,11 +195,10 @@
         </div>
       </div>
       <div class="result" id="planOut"></div>
-      <p class="lead">* الدليل يشير إلى إعداد «مخطط استخدام وسائل التواصل» ضمن نشاطات الدرس. </p>
     </section>
 
     <!-- نشاط ختامي: تحدي 60 ثانية -->
-    <section class="card">
+    <section class="card" id="final">
       <h2>نشاط ختامي: تحدي 60 ثانية</h2>
       <div class="bar"><div id="barFill"></div></div>
       <ol id="finalQuiz" style="margin-top:10px">
@@ -205,46 +215,59 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // ===== إشعار بسيط =====
+    // إشعار بسيط
     const toast = document.getElementById("toast");
     function showToast(msg, ms=2200){ toast.innerHTML = msg; toast.classList.add("show"); clearTimeout(window.__t); window.__t=setTimeout(()=>toast.classList.remove("show"), ms); }
 
-    // تمهيد: اختيار منصة
+    // تبديل الثيم
+    document.getElementById("themeToggle")?.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark");
+      showToast(document.body.classList.contains("dark")?"تم تفعيل الوضع الليلي 🌙":"تم التحويل للوضع الفاتح ☀️");
+    });
+
+    // تمهيد
     document.getElementById("warmup").addEventListener("click", e=>{
       if(e.target.classList.contains("chip")){
         e.target.classList.toggle("on");
-        showToast("جميل! لنكتشف كيف نستفيد منها بذكاء ✨");
+        showToast("رائع! سنعرف كيف نستفيد منها بذكاء ✨");
       }
     });
 
-    // سحب وإفلات
+    // سحب وإفلات (هدف 1)
     const tokens = document.querySelectorAll(".token");
     const buckets = document.querySelectorAll(".bucket");
-    let good=0, total=tokens.length;
-    tokens.forEach(t=> t.addEventListener("dragstart", e=> e.dataTransfer.setData("t", t.dataset.type+"|"+t.textContent)));
+    let placed=0, total=tokens.length;
+    tokens.forEach(t=>{
+      t.addEventListener("dragstart", e=> e.dataTransfer.setData("t", t.dataset.type+"|"+t.textContent));
+    });
     buckets.forEach(b=>{
       b.addEventListener("dragover", e=> e.preventDefault());
       b.addEventListener("drop", e=>{
         const data = e.dataTransfer.getData("t"); if(!data) return;
         const [type,label] = data.split("|");
         if(b.dataset.accept===type){
-          const chip = document.createElement("span"); chip.className="chip"; chip.textContent=label; b.appendChild(chip);
-          showToast("صحيح! ✅"); good++; if(good===total){ document.getElementById("classifyOut").textContent="ممتاز! أتقنت التصنيف."; }
-        }else{ showToast("جرّب فئة أخرى ❌"); }
+          // انقل البطاقة إلى الدلو وأوقف سحبها
+          const el = [...tokens].find(x=>x.textContent===label && x.draggable);
+          if(!el) return;
+          el.draggable=false; el.style.cursor="default"; el.style.opacity=.85;
+          b.appendChild(el);
+          placed++; showToast("صحيح! ✅");
+          if(placed===total) document.getElementById("classifyOut").textContent="ممتاز! أتقنت التصنيف.";
+        }else{
+          showToast("ليست الفئة الصحيحة — جرّب ثانية ❌");
+        }
       });
     });
 
-    // هدف 2: مربعات القرار
+    // مربعات القرار (هدف 2)
     document.getElementById("impact").addEventListener("click", e=>{
       const btn = e.target.closest("button"); if(!btn) return;
-      const isGood = btn.hasAttribute("data-good");
-      const isBad  = btn.hasAttribute("data-bad");
-      if(isGood){ showToast("اختيار موفق 👍") }
-      if(isBad){ showToast("انتبــه: هذه ممارسة غير آمنة ⚠️") }
-      document.getElementById("impactOut").textContent = "استنتاج: نلتزم بالفوائد ونتجنب الممارسات غير الآمنة.";
+      if(btn.hasAttribute("data-good")) showToast("اختيار موفق 👍");
+      if(btn.hasAttribute("data-bad"))  showToast("انتبه: ممارسة غير آمنة ⚠️");
+      document.getElementById("impactOut").textContent = "النتيجة: نختار ما يحقق الهدف ونتجنب ما يضر الخصوصية والوقت.";
     });
 
-    // هدف 3: إنشاء الخطة
+    // إنشاء الخطة (هدف 3)
     document.getElementById("buildPlan").addEventListener("click", ()=>{
       const g = document.getElementById("goal").value.trim();
       const p = document.getElementById("platform").value.trim();
@@ -261,10 +284,10 @@
             <li><strong>إجراءات الأمان:</strong> ${s}</li>
           </ul>
         </div>`;
-      showToast("رائع! خُطتك جاهزة ✅");
+      showToast("ممتاز! خُطتك جاهزة ✅");
     });
 
-    // تحدي 60 ثانية
+    // التحدي الختامي (60 ثانية)
     const bar = document.getElementById("barFill"); let answered=new Set(), score=0, secs=60;
     function tick(){ secs--; bar.style.width = (100*(1 - secs/60))+"%"; if(secs<=0){ finish(); } }
     let timer = setInterval(tick, 1000);
@@ -272,26 +295,15 @@
       clearInterval(timer);
       document.querySelectorAll("#finalQuiz [data-q]").forEach(b=> b.disabled=true);
       document.getElementById("finalOut").textContent = `نتيجتك: ${score}/5`;
-      showToast(score>=4 ? "ممتاز! إتقان رائع 🎉" : "عمل جيد! راجع ما أخطأت فيه ثم أعد المحاولة 🙌", 2600);
+      showToast(score>=4 ? "إبداع! إتقان رائع 🎉" : "عمل جيد! راجع ما أخطأت فيه وأعد المحاولة 🙌", 2600);
     }
     document.getElementById("finalQuiz").addEventListener("click", e=>{
       const btn = e.target.closest("button[data-q]"); if(!btn) return;
       const q = btn.getAttribute("data-q"); if(answered.has(q)) return;
       answered.add(q);
       if(btn.hasAttribute("data-a")){ score++; btn.classList.add("primary"); showToast("صحيح ✅",1500); }
-      else { btn.style.opacity=.6; showToast("إجابة غير دقيقة ❌",1500); }
+      else { btn.style.opacity=.6; showToast("غير دقيق ❌",1500); }
       if(answered.size===5) finish();
-    });
-
-    // تبديل الثيم (اختياري)
-    document.getElementById("themeToggle")?.addEventListener("click", ()=>{
-      document.body.classList.toggle("dark");
-      const dark = document.body.classList.contains("dark");
-      document.documentElement.style.setProperty("--bg", dark?"#0b1220":"#f8fafc");
-      document.documentElement.style.setProperty("--panel", dark?"#0f172a":"#fff");
-      document.documentElement.style.setProperty("--text", dark?"#e5e7eb":"#0f172a");
-      document.documentElement.style.setProperty("--muted", dark?"#9ca3af":"#475569");
-      showToast(dark?"تم تفعيل الوضع الليلي 🌙":"تم التحويل للوضع الفاتح ☀️");
     });
   </script>
 </body>
