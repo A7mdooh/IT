@@ -1,0 +1,12 @@
+.lesson-wrap{padding:28px 0}
+.lead{color:var(--muted)}
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.chip{
+  padding:.35rem .6rem; border-radius:999px; font-size:.92rem;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.12);
+}
+#quiz .q{margin:16px 0; padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06)}
+#quiz label{display:block; margin:6px 0; cursor:pointer}
+.result{margin-top:10px; font-weight:700}
+.actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
