@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>مطابقة المفاهيم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/games.css">
+<style>
+.grid{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:16px}
+.col{background:var(--panel);border:1px solid rgba(2,8,23,.08);border-radius:16px;box-shadow:var(--shadow);padding:12px}
+.item{padding:10px;border:1px solid rgba(2,8,23,.12);border-radius:12px;margin:8px 0;cursor:pointer}
+.item.sel{outline:3px solid rgba(14,165,233,.35)}
+.item.ok{background:#e0f2fe;border-color:#7dd3fc}
+.item.no{background:#fee2e2;border-color:#fecaca}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <a href="./" class="brand" style="text-decoration:none;color:inherit;font-weight:800">الألعاب</a>
+    <nav class="nav">
+      <a href="../lessons/lesson1.html">الدرس الأول</a>
+      <button id="themeToggle" class="btn ghost">🌓</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>🎯 مطابقة المفاهيم</h1>
+    <p class="lead">اختر مصطلحًا ← اختر التعريف المطابق له. لكل مطابقة صحيحة: <strong>+2</strong> نقطة.</p>
+    <div class="chips"><span class="chip">النتيجة: <strong id="score">0</strong>/6</span><button class="btn ghost" id="reset">إعادة</button></div>
+  </section>
+
+  <section class="grid">
+    <div class="col" id="terms" aria-label="مصطلحات">
+      <div class="item" data-id="sn">الشبكات الاجتماعية (Social Networks)</div>
+      <div class="item" data-id="blog">المدونات (Blogs)</div>
+      <div class="item" data-id="wiki">الويكي (Wikis)</div>
+      <div class="item" data-id="media">مشاركة الوسائط (Media Sharing)</div>
+      <div class="item" data-id="foot">البصمة الرقمية (Digital Footprint)</div>
+      <div class="item" data-id="2fa">المصادقة الثنائية (2FA)</div>
+    </div>
+    <div class="col" id="defs" aria-label="تعريفات">
+      <div class="item" data-id="2fa">طبقة تحقق إضافية لحماية الحساب.</div>
+      <div class="item" data-id="sn">ملف شخصي + علاقات/متابعة + موجز تفاعلات.</div>
+      <div class="item" data-id="wiki">تحرير تعاوني للمحتوى مع توثيق.</div>
+      <div class="item" data-id="blog">مقالات/آراء مرتبة زمنيًا مع تعليقات.</div>
+      <div class="item" data-id="media">رفع صور/فيديو وبث وتعليقات.</div>
+      <div class="item" data-id="foot">الأثر الدائم لأنشطتك على الإنترنت.</div>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/game-core.js"></script>
+<script>
+insertPointsBadge();
+
+const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
+let first=null, score=0; const scoreEl=$("#score");
+function sel(e){
+  const it=e.target.closest(".item"); if(!it) return;
+  // عمود المصطلحات أولًا
+  if(it.parentElement.id==="terms"){ $$(".item.sel").forEach(x=>x.classList.remove("sel")); it.classList.add("sel"); first=it; showToast("اختر التعريف المطابق"); return; }
+  // ثم التعريف
+  if(!first){ showToast("اختر مصطلحًا أولاً"); return; }
+  const ok = first.dataset.id===it.dataset.id;
+  if(ok){
+    first.classList.add("ok"); it.classList.add("ok");
+    first.style.pointerEvents="none"; it.style.pointerEvents="none";
+    score++; scoreEl.textContent=score; SFX.ok(); Points.add(2,false); showToast("صحيح ✅ +2");
+    first=null;
+    if(score===6){ Points.add(6); showToast("ممتاز! بونس إتمام +6 🎉",2600); }
+  }else{
+    it.classList.add("no"); setTimeout(()=>it.classList.remove("no"),600);
+    SFX.bad(); showToast("محاولة غير صحيحة ❌");
+  }
+}
+$("#terms").addEventListener("click", sel);
+$("#defs").addEventListener("click", sel);
+$("#reset").addEventListener("click", ()=> location.reload());
+</script>
+</body>
+</html>
