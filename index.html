@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>منصة الصف الثامن | تقنية المعلومات</title>
+  <meta name="description" content="منصة دروس تفاعلية وألعاب تعليمية وحصص نموذجية للصف الثامن.">
+  <!-- خط كايرو -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="favicon.ico">
+</head>
+<body class="theme-auto">
+  <!-- شريط علوي -->
+  <header class="topbar glass">
+    <div class="container">
+      <a class="brand" href="./"><span>منصتي</span></a>
+      <nav class="nav">
+        <a href="./lessons/">الدروس</a>
+        <a href="./games/">الألعاب التعليمية</a>
+        <a href="./model-classes/">حصص نموذجية</a>
+        <button id="themeToggle" class="btn ghost" aria-label="تبديل الثيم">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- بطل الصفحة -->
+  <section class="hero gradient-1">
+    <div class="container hero-content">
+      <h1>تقنية المعلومات – الصف الثامن</h1>
+      <p>صفحات تفاعلية، ألعاب تعليمية، وحصص نموذجية — بتصميم عصري وأنيق.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="./lessons/lesson1.html">ابدأ الدرس الأول</a>
+        <a class="btn outline" href="./games/">جرّب الألعاب</a>
+      </div>
+    </div>
+    <div class="floating-orbs" aria-hidden="true"></div>
+  </section>
+
+  <!-- بطاقات -->
+  <main class="container grid-3">
+    <article class="card hover-rise">
+      <h3>الدروس</h3>
+      <p>دروس مبسطة وتفاعلية مع أسئلة فورية وتعزيز الفهم.</p>
+      <a class="btn link" href="./lessons/">انتقل إلى الدروس →</a>
+    </article>
+
+    <article class="card hover-rise">
+      <h3>الألعاب التعليمية</h3>
+      <p>أنشطة وألعاب قصيرة لتعزيز المهارات التقنية.</p>
+      <a class="btn link" href="./games/">ابدأ اللعب →</a>
+    </article>
+
+    <article class="card hover-rise">
+      <h3>حصص نموذجية</h3>
+      <p>خطط جاهزة وعروض تقديمية قابلة للتعديل.</p>
+      <a class="btn link" href="./model-classes/">شاهد الأمثلة →</a>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© <span id="year"></span> منصتي التعليمية – بإبداعك 👨‍🏫👩‍🏫</small>
+    </div>
+  </footer>
+
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
