@@ -7,8 +7,16 @@
   <meta name="description" content="منصة دروس تفاعلية وألعاب تعليمية وحصص نموذجية للصف الثامن.">
   <!-- خط كايرو -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <!-- الأنماط -->
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="icon" href="favicon.ico">
+  <style>
+    /* تحسين بسيط لعناوين H1 بتدرّج لطيف */
+    h1{
+      background:linear-gradient(90deg, var(--primary), var(--primary-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+  </style>
 </head>
 <body class="theme-auto">
   <!-- شريط علوي -->
@@ -16,6 +24,8 @@
     <div class="container">
       <a class="brand" href="./"><span>منصتي</span></a>
       <nav class="nav">
+        <!-- (جديد) تحضير الدرس قبل رابط الدروس -->
+        <a href="./lessons/lesson1-plan.html">تحضير الدرس</a>
         <a href="./lessons/">الدروس</a>
         <a href="./games/">الألعاب التعليمية</a>
         <a href="./model-classes/">حصص نموذجية</a>
@@ -28,7 +38,7 @@
   <section class="hero gradient-1">
     <div class="container hero-content">
       <h1>تقنية المعلومات – الصف الثامن</h1>
-      <p>صفحات تفاعلية، ألعاب تعليمية، وحصص نموذجية — بتصميم عصري وأنيق.</p>
+      <p>صفحات تفاعلية، ألعاب تعليمية، وحصص نموذجية — بتصميم عصري وأنيق بخط Cairo.</p>
       <div class="hero-actions">
         <a class="btn primary" href="./lessons/lesson1.html">ابدأ الدرس الأول</a>
         <a class="btn outline" href="./games/">جرّب الألعاب</a>
@@ -37,33 +47,34 @@
     <div class="floating-orbs" aria-hidden="true"></div>
   </section>
 
-  <!-- بطاقات -->
+  <!-- أقسام مختصرة -->
   <main class="container grid-3">
     <article class="card hover-rise">
+      <h3>تحضير الدرس</h3>
+      <p>خطة جاهزة للطباعة: أهداف، خطوات، وتقويم فوري.</p>
+      <a class="btn link" href="./lessons/lesson1-plan.html">افتح التحضير →</a>
+    </article>
+
+    <article class="card hover-rise">
       <h3>الدروس</h3>
-      <p>دروس مبسطة وتفاعلية مع أسئلة فورية وتعزيز الفهم.</p>
-      <a class="btn link" href="./lessons/">انتقل إلى الدروس →</a>
+      <p>محتوى مبسّط وتفاعلي مع أنشطة وتمارين فورية.</p>
+      <a class="btn link" href="./lessons/">اذهب إلى الدروس →</a>
     </article>
 
     <article class="card hover-rise">
       <h3>الألعاب التعليمية</h3>
-      <p>أنشطة وألعاب قصيرة لتعزيز المهارات التقنية.</p>
+      <p>أنشطة قصيرة لتعزيز المفاهيم بطريقة ممتعة.</p>
       <a class="btn link" href="./games/">ابدأ اللعب →</a>
-    </article>
-
-    <article class="card hover-rise">
-      <h3>حصص نموذجية</h3>
-      <p>خطط جاهزة وعروض تقديمية قابلة للتعديل.</p>
-      <a class="btn link" href="./model-classes/">شاهد الأمثلة →</a>
     </article>
   </main>
 
   <footer class="footer">
     <div class="container">
-      <small>© <span id="year"></span> منصتي التعليمية – بإبداعك 👨‍🏫👩‍🏫</small>
+      <small>© <span id="year"></span> منصتي التعليمية – بالتوفيق 🌟</small>
     </div>
   </footer>
 
+  <!-- سكربتات -->
   <script src="assets/js/ui.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
