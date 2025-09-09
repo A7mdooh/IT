@@ -1,24 +1,23 @@
-// توست بسيط
+// ثيم (فاتح/داكن)
 (function(){
-  const style = document.createElement("style");
-  style.textContent = `
-  .toast{position:fixed; inset-inline:50%; transform:translateX(-50%); bottom:20px;
-    background:var(--card); color:var(--text); border:1px solid rgba(255,255,255,.14);
-    padding:.6rem 1rem; border-radius:12px; box-shadow:var(--shadow); z-index:9999; opacity:0; transition:opacity .2s ease}
-  .toast.show{opacity:1}`;
-  document.head.appendChild(style);
-
-  let t;
-  window.showToast = (msg)=>{
-    clearTimeout(t);
-    let el = document.querySelector(".toast");
-    if(!el){
-      el = document.createElement("div");
-      el.className = "toast";
-      document.body.appendChild(el);
-    }
-    el.textContent = msg;
-    el.classList.add("show");
-    t = setTimeout(()=> el.classList.remove("show"), 2200);
-  }
+  const root = document.documentElement;
+  const key = "theme";
+  const apply = (t)=>{ root.classList.toggle("dark", t==="dark"); localStorage.setItem(key, t); };
+  apply(localStorage.getItem(key)||"light");
+  document.addEventListener("click", (e)=>{
+    const btn = e.target.closest("#themeToggle");
+    if(!btn) return;
+    const cur = localStorage.getItem(key)||"light";
+    apply(cur==="dark"?"light":"dark");
+    showToast(cur==="dark"?"تم التحويل إلى الوضع الفاتح":"تم تفعيل الوضع الليلي");
+  });
 })();
+
+// إشعار بسيط
+window.showToast = (msg, ms=2600)=>{
+  let t = document.querySelector(".toast");
+  if(!t){ t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t); }
+  t.innerHTML = msg; t.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=> t.classList.remove("show"), ms);
+};
