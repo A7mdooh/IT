@@ -2,26 +2,42 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>الألعاب التعليمية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/games.css">
 </head>
 <body>
-  <header class="topbar glass">
-    <div class="container">
-      <a class="brand" href="../">منصتي</a>
-      <nav class="nav">
-        <a href="../lessons/">الدروس</a>
-        <a href="../games/">الألعاب التعليمية</a>
-        <a href="../model-classes/">حصص نموذجية</a>
-      </nav>
-    </div>
-  </header>
+<header class="topbar">
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+    <a href="../" class="brand" style="text-decoration:none;color:inherit;font-weight:800">منصتي</a>
+    <nav class="nav">
+      <a href="../lessons/lesson1.html">الدرس الأول</a>
+      <a href="../lessons/lesson1-plan.html">تحضير الدرس</a>
+      <a href="./">الألعاب</a>
+      <button id="themeToggle" class="btn ghost">🌓</button>
+    </nav>
+  </div>
+</header>
 
-  <main class="container" style="padding:28px 0">
+<main class="container">
+  <section class="hero">
     <h1>الألعاب التعليمية</h1>
-    <p>قريبًا: مطابقة المفاهيم، بطاقات فلاش، ومتاهة الأسئلة.</p>
-  </main>
+    <p class="lead">تعلّم ممتع + نقاط موحّدة عبر كل الألعاب. اجمع النقاط ونافس زملاءك!</p>
+    <div class="chips"><span class="chip">مطابقة المفاهيم</span><span class="chip">بطاقات فلاش</span><span class="chip">متاهة الأسئلة</span><span class="chip">رحلة الشبكات</span></div>
+  </section>
+
+  <section class="grid-3" style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:16px">
+    <article class="card hover-rise"><h3>🎯 مطابقة المفاهيم</h3><p class="lead">صل المصطلح بتعريفه الصحيح.</p><a class="btn primary" href="./concept-match.html">ابدأ</a></article>
+    <article class="card hover-rise"><h3>🧠 بطاقات فلاش</h3><p class="lead">اقلب وتعلّم بسرعة، ثم قيّم معرفتك.</p><a class="btn primary" href="./flash-cards.html">ابدأ</a></article>
+    <article class="card hover-rise"><h3>🌀 متاهة الأسئلة</h3><p class="lead">أجب بشكل صحيح لتتقدم في المتاهة.</p><a class="btn primary" href="./quiz-maze.html">ابدأ</a></article>
+    <article class="card hover-rise"><h3>🚀 رحلة عبر شبكات التواصل</h3><p class="lead">اجمع مفاتيح الأمان عبر المراحل الأربع.</p><a class="btn outline" href="./social-journey.html">ابدأ</a></article>
+  </section>
+</main>
+
+<script src="../assets/js/ui.js"></script>
+<script src="../assets/js/game-core.js"></script>
+<script>insertPointsBadge();</script>
 </body>
 </html>
